@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+ <html lang="cs">
+ <link rel="icon" href="https://img41.rajce.idnes.cz/d4102/19/19244/19244630_db82ad174937335b1a151341387b7af2/images/image_82x82.jpg?ver=1" type="image/png">
+
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Trek: Hudební Přehravač</title>
+      
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="miniPlayer.css">  
+   
+  <link rel="stylesheet" href="casovac.css"> 
+   
+  <link rel="stylesheet" href="browser-status.css">   
+  <link rel="stylesheet" href="scrollbar.css"> 
+ <!-- <link rel="stylesheet" href="christmas.css"> -->
+  <link rel="stylesheet" href="zobrazit-panel-hlasitosti.css">
+   <link rel="stylesheet" href="playlistSettings.css">
+    <link rel="stylesheet" href=" jirikovo-barveni-ui-tlacitek.css">   
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#C00000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+   
+    
+    <div id="browser-status" class="ukazatel">
+    <span style="color: #ff00ff;"> </span> 
+    <strong> </strong> 
+    <span id="browser-info" style="color: #ffff00; font-weight: bold;"></span>
+</div>
+ <div class="player-content-wrapper">
+        
+    
+     
+  <div class="background-image-container">
+   <img src="">
+  </div>
+  
+  
+    
+     <audio id="audioPlayer">
+    <source id="audioSource" src="" type="audio/mpeg">
+</audio>
+
+
+  <div class="player-container">
+     <div id="nazev-prehravace-nazev-skladby" >
+      <h1 class="header-title" id="nazev-prehravace" style="background:#000;">STAR TREK: HUDEBNÍ PŘEHRAVAČ</h1>
+    <h2 id="trackTitle" >Vyberte skladbu</h2>
+      </div>
+      
+      
+      <div class="time-controls" id="progres-bar-time-part" >
+        <span id="currentTime" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
+         <span class="time-part" style="color: white;">00</span><span class="time-separator" style="color: white;">:</span><span class="time-part" style="color: white;">00</span><span class="time-separator" style="color: white;">:</span><span class="time-part" style="color: white;">00</span>
+        </span>
+        <input type="range" id="progress-bar" min="0" max="100" value="0" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
+        <span id="duration" style="display:inline-block;padding:2px;background:#000;border:2px solid #C00000;color:#fff;margin:0;">
+          <span class="time-part" style="color: white;">00</span><span class="time-separator" style="color: white;">:</span><span class="time-part" style="color: white;">00</span><span class="time-separator" style="color: white;">:</span><span class="time-part" style="color: white;">00</span>
+        </span>
+      </div>
+      
+     <!-- obal/pouzdro-->
+      <div id="control-panel" >
+           <!-- hl kontejner tlačítek -->
+        <div class="controls">
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="prev-button" title="Předchozí (Šipka vlevo)"  >◀️⬅️</button> 
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="play-button" title="Přehrát (Mezerník/P)"   >🚀</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="pause-button" title="Pauza (Mezerník/P)"  >🖖⏸️</button>
+        <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="next-button" title="Další (Šipka vpravo)"  >▶️➡️</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="loop-button" title="Opakovat (L)"  >🔁</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="shuffle-button" title="Náhodně (Vypnuto)"  >🔀</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="reset-button" title="Restartovat skladbu (R)"  >🔄</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="fullscreen-toggle" title="Celá obrazovka (F)"  >⛶</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="toggle-info-button" title="Zobrazit/Skrýt klávesové zkratky"   >📋</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="reload-button" title="Obnovit stránku"  >🔄</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="toggle-playlist-button" title="Zobrazit/Skrýt playlist"  >📜</button> 
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="timer-button" title="Časovač vypnutí (T)"  >⏰</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="clearAllDataBtn" onclick="window.clearAllAudioPlayerData()"  >🗑️</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="perf-monitor-btn">🔍📊</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+           <button id="jirik-manual-opener-btn"  >🧾</button>  
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+          <button id="mini-mode-float">🖼️ Float</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+<button id="mini-mode-pip">📺 PiP</button>
+            <!-- Mám nastaveno v buttonVisibilityManager.js-->
+<button id="mini-mode-popup">🪟 Popup</button>
+ 
+            
+    <!-- budu nastavovat v buttonVisibilityManager.js-->        
+  <!-- Jednoduché PTT tlačítko -->
+<button class="voice-ptt-trigger" id="voice-commands-help">V</button> 
+<button class="control-button" onclick="window.voiceController.showHelp()" title="Zobrazit hlasové příkazy (Manuál)" id="zobrazeni-manualu">📋</button>          
+ <button id="debug-manager-button">🛠️ DIAGNOSTIKA</button>  
+ <button id="bluetooth-monitor-toggle">🛠️ </button>           
+ <button id="uprava-barev-moldar-system" title="zobrazit moldar">🎨 UI</button>           
+ <button id="zobrazit-panel-hlasitosti" title="panel-hlasitost">🔊📋</button>      
+         <button id="install-app-button" class="control-button" title="Instalovat aplikaci do systému">📥 INSTALOVAT</button>
+            
+   <button id="playlist-sync-button" title="playlist-syn">🔄📋</button>         
+    <button id="lehka-atomovka" title="lehká atomovka">☢️</button>        
+           <button id="The-Constructor" onclick="window.open('https://raw.githack.com/jirka22med/star-trek-hudebni-prehravac-vylepsen-4-mobilni/ce696a957ede1e8e8c498c7de5566a03dd6a0a05/The-Constructor-myPlaylist-js.html', '_blank')">
+    Konvertor Playlistu (LIVE)
+</button>
+
+<button id="indexator" onclick="window.open('https://raw.githack.com/jirka22med/star-trek-hudebni-prehravac-vylepsen-4-mobilni/ce696a957ede1e8e8c498c7de5566a03dd6a0a05/indexator.html', '_blank')">
+    Indexátor (LIVE)
+</button>
+
+<button id="sekce" onclick="window.open('https://raw.githack.com/jirka22med/star-trek-hudebni-prehravac-vylepsen-4-mobilni/ce696a957ede1e8e8c498c7de5566a03dd6a0a05/sekce.html', '_blank')">
+    Rekalibrace Sekcí (LIVE)
+</button>  
+
+<button id="lehka-atomovka-prohlizec-zalohy" onclick="window.open('https://raw.githack.com/jirka22med/star-trek-hudebni-prehravac-vylepsen-4-mobilni/8480857afbe4dd159429163222a553c5d80519a6/lehka-atomovka-backup-viewer.html', '_blank')">
+    Lehká Atomovka Prohlížeč Zálohy
+</button>
+         
+<button id="jirikovo-barveni-ui-tlacitek-otevrevi-moldar-okna" title="moldar okno barvení ui tlacítek">🎨</button>            
+        </div>
+       
+          
+        <div class="volume-controls" id="volume-sider-nastaveni-hlasitosti" >
+          <button id="mute-button" title="Ztlumit (M)">🔊</button>
+          <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.1" title="Hlasitost (A/D)">
+          <span id="volume-value">10</span>
+        </div>
+      </div>
+      <div class="performance-mode" id="perfMode">⚡ VARIANTA B</div>
+      <div id="search-container" class="search-container">
+    <div class="search-input-wrapper" >
+        <input  
+            type="text" 
+            id="search-input" 
+            class="search-input" 
+            placeholder="🔍 Hledat skladbu... (Ctrl+F)"
+            autocomplete="off"
+        />
+        <button id="clear-search" class="clear-search-button" style="display: none;">✖</button>
+    </div>
+    <div id="search-counter" class="search-counter" style="display: none;"></div>
+    <div id="search-results" class="search-results" style="display: none;"></div>
+</div>
+
+      <div class="playlist" id="playlist"> 
+          
+    <div id="notification"></div>
+      <div class="fade-indicator">       
+   
+
+  </div>
+      </div>
+    </div> 
+ <div class="hlavni-kontejner-pro-cas-a-casovac" id="digitalni-hodini-datum">
+  <div class="time-calendar-wrapper">
+    <div class="time">
+      <div class="time-colon"><div class="time-text"><span class="num hours">00</span><span class="text">H</span></div></div>
+      <span class="colon">:</span>
+      <div class="time-colon"><div class="time-text"><span class="num minutes">00</span><span class="text">M</span></div></div>
+      <span class="colon">:</span>
+      <div class="time-colon"><div class="time-text"><span class="num seconds">00</span><span class="text">S</span></div></div>
+    </div>
+    <div class="calendar"><div class="date" id="currentDate"></div></div>
+  </div>
+
+  <div class="timer-container" id="timer-container">
+    <div class="timer-display">
+      <span id="timer-minutes">00</span>:<span id="timer-seconds">00</span> 
+    </div>
+    
+    <div class="timer-controls">
+      <!-- Vstupní pole pro minuty -->
+      <input 
+        type="number" 
+        id="timer-input" 
+        placeholder="Zadej minuty" 
+        min="1"
+        value="15"
+      />
+      
+      <!-- Ovládací tlačítka -->
+      <button id="timer-start">▶️ Start</button>
+      <button id="timer-stop">⏹️ Stop</button>
+      <button id="timer-reset">🔄 Reset</button>
+    </div>
+  </div>
+</div>
+        <!-- Mám nastaveno v buttonVisibilityManager.js >> pouze jen id popisky to mi skrývá celý tento blok až po <canvas id="waveform-canvas"></canvas> -->
+     <div class="keyboard-container">
+    <div id="popisky"> 
+        
+      </div>
+         
+       </div>
+    <footer id="mainFooter">
+  &copy; <span id="currentYear"></span> Star Trek: Hudební Přehravač | Vytvořeno s láskou ke Star Treku
+</footer>
+          
+   </div>
+  <!-- ============================================ -->
+<!-- 🖖 STAR TREK AUDIO PLAYER - MODULE LOADING ORDER -->
+<!-- Verze: 3.5 - Optimalizované pořadí pro Firebase -->
+<!-- ============================================ -->
+  
+<!-- ============================================ -->
+<!-- LAYER 0: PWA FLEET REGISTRY (MUSÍ BÝT PRVNÍ!) -->
+<!-- ============================================ -->
+  <script src="fleet-register.js"></script>
+ <!-- ============================================ -->
+<!-- JIŘÍKŮV HLÍDAČ A ZACHYTALAC KONZOLIVYCH LOGU EXPORT DO HTML-->
+<!-- ============================================ -->
+<!-- <script src="jirkuv-hlidac.js" async></script> -->
+<!-- ============================================ -->
+<!-- LAYER 1: FIREBASE CORE (SYNCHRONNÍ - BEZ DEFER!) -->
+<!-- Musí se načíst PŘED všemi Firebase moduly -->
+<!-- ============================================ -->
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+
+<!-- ============================================ -->
+<!-- LAYER 2: DEBUG & LOGGING (SYNCHRONNÍ - BEZ DEFER!) -->
+<!-- Musí být PŘED Firebase moduly, aby mohly logovat -->
+<!-- ============================================ -->
+<script src="DebugManager.js"></script>
+
+<!-- ============================================ -->
+<!-- LAYER 3: FIREBASE MODULY (SYNCHRONNÍ - BEZ DEFER!) -->
+<!-- Poskytují API pro ostatní moduly -->
+<!-- ============================================ -->
+ 
+
+<!-- ============================================ -->
+<!-- LAYER 4: CORE AUDIO ENGINE (SYNCHRONNÍ - BEZ DEFER!) -->
+ <!--    <script src="stream_stabilizer.js"></script> -->
+
+<!-- Inicializuje window.tracks, window.favorites, audio element -->
+<!-- ============================================ -->
+<script type="module" src="script.js"></script>
+ <script type="module" src="audioFirebaseFunctions.js"></script>   
+    <script src="playlistSync.js" ></script>
+  <script src="pokrocila-sprava-playlistu.js" defer></script>   
+<script src="buttonVisibilityFirebase.js"></script>
+ <script src="jirikovo-barveni-ui-tlacitek-firebase.js"></script>
+  
+<!-- ============================================ -->
+<!-- LAYER 5: DATA LAYER (SYNCHRONNÍ - BEZ DEFER!) -->
+<!-- KRITICKÉ: myPlaylist.js MUSÍ být BEZ DEFER! -->
+<!-- audioFirebaseFunctions.js čeká na window.PLAYLIST_SOURCE_READY -->
+<!-- ============================================ -->
+<script src="myPlaylist.js"></script>
+
+<!-- ============================================ -->
+<!-- LAYER 6: UI MANAGERS (SYNCHRONNÍ nebo DEFER podle závislostí) -->
+<!-- Správa pozadí, barev, notifikací -->
+<!-- ============================================ -->
+<script src="backgroundManager.js"></script>
+<script src="colorManager.js"></script>
+<script src="notificationFix.js" defer></script>
+
+<!-- ============================================ -->
+<!-- LAYER 7: SYNC & STORAGE (DEFER OK) -->
+<!-- Synchronizace playlistu s cloudem -->
+<!-- ============================================ -->
+ 
+<!-- ============================================ -->
+<!-- LAYER 8: FEATURE MODULY (DEFER nebo ASYNC) -->
+<!-- Rozšiřující funkce - můžou se načíst paralelně -->
+<!-- ============================================ -->
+
+<!-- Pokročilá správa playlistu -->
+ 
+<!-- ============================================ -->
+ <!-- ============================================ -->
+<!-- Nastavení vzhledu playlistu + 2x záloha 1X originál , 1x beta test verze +  -->
+ <!-- ============================================ -->
+ <script src="playlistSettings.js" defer></script> 
+ <!-- ============================================ -->
+ <!-- <script src="playlistSettings-2.js" defer></script> -->
+<!-- ============================================ -->
+ <!-- <script src="playlistSettings-3.js" defer></script> -->
+ <!-- ============================================ -->
+<!-- ============================================ --> 
+<!-- Správa viditelnosti tlačítek -->
+<script src="buttonVisibilityManager.js" defer></script>
+
+<!-- Automatické přechody mezi skladbami -->
+<script src="autoFade.js" defer></script>
+
+<!-- Časovač -->
+<script src="timer-module.js" defer></script>
+
+<!-- Vyhledávač skladeb -->
+<script src="vyhledavac-skladeb.js" defer></script>
+
+<!-- Mini přehrávač (plovoucí okno) -->
+<script src="miniPlayer.js" defer></script>
+
+<!-- ============================================ -->
+<!-- LAYER 9: MONITORING & DEBUG (DEFER nebo ASYNC) -->
+<!-- Monitorovací nástroje - nejnižší priorita -->
+<!-- ============================================ -->
+<script src="universalni-perfomens-monitor.js" defer></script>
+
+<script src="bluetoothDisconnectMonitor.js" defer></script>
+
+<!-- ============================================ -->
+<!-- LAYER 10: UI FINALIZATION (DEFER - POSLEDNÍ!) -->
+<!-- Finální úpravy UI - musí být po všech feature modulech -->
+<!-- ============================================ -->
+<script src="sprava-rozhrani.js" defer></script>
+<script src="scrollbar.js" defer></script>
+
+<!-- ============================================ -->
+<!-- LAYER 11: PWA INSTALLER (SYNC nebo DEFER) -->
+<!-- Instalace PWA aplikace -->
+<!-- ============================================ -->
+    
+    <script src="pwa-installer.js" defer></script>
+    
+    
+    
+ <script src="lehka-atomovka.js"></script>  
+
+ <script src="jirikovo-barveni-ui-tlacitek.js"></script>    
+<!-- ============================================ -->
+<!-- 🖖 KONEC NAČÍTÁNÍ MODULŮ -->
+<!-- Více admirál Jiřík & Admirál Claude.AI -->
+<!-- ============================================ -->
+  
+<script>                              
+(function() {
+const __INDEX_HTML_START = performance.now();
+ 
+    const WATCHDOG_KEY = 'watchdog_last_check';
+    const RELOAD_COOLDOWN = 10000; // 10s ochrana proti loop
+    
+    // 🛡️ POJISTKA #1: Cooldown check
+    const lastCheck = localStorage.getItem(WATCHDOG_KEY);
+    if (lastCheck && (Date.now() - parseInt(lastCheck)) < RELOAD_COOLDOWN) {
+        console.log("🐕 [Watchdog] Cooldown aktivní - přeskakuji check.");
+        return;
+    }
+    
+    // 1. ZLIKVIDOVAT DUCHY
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(regs => {
+            regs.forEach(reg => reg.unregister());
+        });
+    }
+    
+    // 2. KONTROLA ČERSTVOSTI
+    fetch('fleet-register.js?v=' + Date.now())
+        .then(r => r.text())
+        .then(text => {
+            // 🆕 NOVÝ REGEX – čte dynamické verzování formátu YYYY.M.D.BUILD
+            const match = text.match(/version:\s*`\$\{[^}]+\}\.\$\{[^}]+\}\.\$\{[^}]+\}\.\$\{[^}]+\}`/);
+            
+            // Místo porovnání stringu čteme buildNumber z localStorage
+            const serverBuild = (() => {
+                const buildMatch = text.match(/localStorage\.getItem\(key\)\s*\|\|\s*'(\d+)'/);
+                return buildMatch ? parseInt(buildMatch[1]) : null;
+            })();
+            
+            const browserVer = window.FLEET_CONFIG?.version || "0.0.0";
+            const browserBuild = window.FLEET_CONFIG?.buildNumber || 0;
+            
+            console.log(`🐕 [Watchdog] Browser verze: ${browserVer} | Build: ${browserBuild}`);
+            
+            if (serverBuild && browserBuild < serverBuild) {
+                console.warn("⚠️ [Watchdog] Zastaralá verze! Restart za 2s...");
+                
+                // 🛡️ POJISTKA #2: Timestamp před reload
+                localStorage.setItem(WATCHDOG_KEY, Date.now().toString());
+                
+                // 🛡️ POJISTKA #3: Vyčistit cache PŘED reload
+                if ('caches' in window) {
+                    caches.keys().then(names => {
+                        names.forEach(name => caches.delete(name));
+                    });
+                }
+                
+                // 🛡️ POJISTKA #4: Delay + hard reload
+                setTimeout(() => {
+                    window.location.href = window.location.href.split('?')[0] + '?refresh=' + Date.now();
+                }, 2000);
+            } else {
+                console.log("✅ [Watchdog] Verze OK.");
+                localStorage.removeItem(WATCHDOG_KEY); // Reset cooldown
+            }
+        })
+        .catch(err => {
+            console.log("🐕 [Watchdog] Offline nebo chyba:", err.message);
+        });
+
+    // ⏱️ LOG END 
+    console.log(`%c🚀 [INDEX-HTML] Načteno za ${(performance.now() - __INDEX_HTML_START).toFixed(2)} ms`, 'background: #000; color: #00ff00; font-weight: bold; padding: 2px;');
+})();
+</script>    
+</body>
+</html>
+
+
+
