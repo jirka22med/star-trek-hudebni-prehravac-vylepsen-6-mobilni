@@ -1,7 +1,7 @@
 {
   "name": "Star Trek Hudební Přehrávač",
   "short_name": "ST Přehrávač",
-  "description": "Modulární audio systém inspirovaný Star Trekem - Architekt Jiřík",
+  "description": "Modulární Star Trek hudební přehrávač – playlist, offline režim, hlasové ovládání, mini přehrávač a pokročilé UI. Dílo více admirála Jiříka.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -31,7 +31,22 @@
       "purpose": "any maskable"
     }
   ],
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "https://raw.githubusercontent.com/jirka22med/star-trek-hudebni-prehravac-vylepsen-6-mobilni/d59b1461b993e12c40d66288abd5b4e7b8ebf2f6/icons/mobil-infinix-star-trek-hudebni-prehravac.png",
+      "type": "image/png",
+      "sizes": "1080x2460",
+      "form_factor": "narrow",
+      "label": "Star Trek Přehrávač – mobilní zobrazení"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/jirka22med/star-trek-hudebni-prehravac-vylepsen-6-mobilni/45f9c7b4e1b82d063fffe7f1409a911f4d45fe71/icons/destop-notebook-velky-obrazek.png",
+      "type": "image/png",
+      "sizes": "1920x1080",
+      "form_factor": "wide",
+      "label": "Star Trek Přehrávač – desktopové zobrazení"
+    }
+  ],
   "shortcuts": [
     {
       "name": "Přehrát hudbu",
